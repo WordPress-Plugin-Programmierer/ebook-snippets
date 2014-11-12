@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Remove Actions
+Plugin Name: Has Action
 */
 
 
