@@ -4,19 +4,22 @@ Plugin Name: PHPDoc für Funktionen und Methoden
 */
 
 /**
- * Kurzbeschreibung.
+ * Lässt das Fahrzeug fahren.
  *
- * Lange Beschreibung.
+ * Legt den ersten Gang des Fahrzeugs ein und gibt gas.
  *
- * @since      x.x.x
- * @deprecated x.x.x Benutze stattdessen neuer_funktionsname().
- * @access     private (für Methoden nur wenn als privat markiert)
+ * @since1.0.3
  *
- * @see        Function/method/class relied on
- * @global Typ $var Kurzbeschreibung.
+ * @see   Fahrzeug::fahren()
  *
- * @param  Typ $var Beschreibung
- * @param  Typ $var Optional. Beschreibung.
+ * @param object $fahrzeug Eine Klasse des Typs Fahrzeug.
+ * @param int    $gang     Optional. Der Gang der eingelegt werden soll.
  *
- * @return Typ Beschreibung.
+ * @return float Geschwindigkeit
  */
+function fahren( $fahrzeug, $gang = 1 ) {
+
+	$fahrzeug->gang_einlegen( $gang );
+
+	return $fahrzeug->geschwindigkeit();
+}
