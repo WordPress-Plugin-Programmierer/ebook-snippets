@@ -12,7 +12,7 @@ function mm_admin_menu() {
 		'manage_options',
 		'mm-meins',
 		'mm_main_page_render',
-		'dashicons-universal-access-alt'
+		plugins_url( 'images/pacman.png', __FILE__ )
 	);
 }
 
