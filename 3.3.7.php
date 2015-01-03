@@ -8,10 +8,10 @@ add_filter( 'the_excerpt', 'mm_filter_content' );
 
 function mm_filter_content( $content ) {
 	if ( 'the_content' == current_filter() ) {
-	// Mache etwas um den Inhalt zu veärndern
+	// Mache etwas, um den Inhalt zu verändern
 		return $content;
 	}
 
-	// Mache etwas anderes um den Excerpt zu verändern
+	// Mache etwas anderes, um den Excerpt zu verändern
 	return $content;
 }
