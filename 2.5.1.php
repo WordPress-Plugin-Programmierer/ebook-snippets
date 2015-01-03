@@ -5,8 +5,11 @@ Plugin Name: Mein erstes Plugin
 
 $url = 'http://beispiel.de';
 
-// Nicht empfohlen:
+// B1: Nicht empfohlen:
 echo "<a href='$url'>Dies ist eine URL</a>";
 
-// Empfohlen:
+// B2: Nicht empfohlen:
+echo "<a href="\$url\">Dies ist eine URL</a>";
+
+// B3: Empfohlen:
 echo '<a href="' . $url . '">Dies ist eine URL</a>';
