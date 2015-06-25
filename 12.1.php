@@ -62,5 +62,4 @@ function mm_register_taxonomy_and_post() {
 
 }
 
-get_taxonomy();
 
