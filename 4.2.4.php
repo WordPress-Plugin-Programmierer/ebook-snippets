@@ -20,7 +20,7 @@ function mm_meta_box( $post, $args ) {
 add_action( 'save_post', 'mm_save_meta_box' );
 
 function mm_save_meta_box( $post_id ) {
-	$mm_metabox_zusatz = filter_input( INPUT_POST, 'mm_metabox_zusatz', FILTER_VALIDATE_INT );
+	$mm_metabox_zusatz = filter_input( INPUT_POST, 'mm_metabox_zusatz', FILTER_VALIDATE_BOOLEAN );
 
 	if ( empty( $mm_metabox_zusatz ) ) {
 		delete_post_meta( $post_id, 'mm_metabox_zusatz' );
