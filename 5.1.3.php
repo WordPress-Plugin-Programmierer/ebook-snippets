@@ -34,7 +34,7 @@ function mm_settings_page_render() {
 
 		</form>
 	</div>
-<?php
+	<?php
 }
 
 add_action( 'admin_init', 'mm_register_settings' );
@@ -56,7 +56,7 @@ function mm_register_settings() {
 		'mm_settings_section_1',
 		array(
 			'page_hook' => $mm_page_hook,
-			'label_for' => 'mm_settings_section_1_field_1'
+			'label_for' => 'mm_settings_section_1_field_1',
 		)
 	);
 
@@ -69,16 +69,23 @@ function mm_settings_section_cb_1() {
 
 function mm_settings_section_cb_1_field_1( $args ) {
 	$value = get_option( 'mm_settings_section_1_field_1', $args['page_hook'] );
-	echo '<input id="' . $args['label_for'] . '" class="regular-text" type="text" value="' . esc_attr( $value ) . '" name="mm_settings_section_1_field_1" />';
-	echo '<a style="color: red;" class="button" href="' .
-	     wp_nonce_url(
-	     // die eigentliche URL
-		     admin_url( 'options-general.php?page=mm-meins-unter-1&mm_action=delete_settings' ),
-		     // der Name der Action
-		     'mm_delete_settings',
-		     // die Bezeichnung der Variablen die die Nonce beinhalten soll
-		     'mm_nonce' )
-	     . '">Feld zurücksetzen</a>';
+
+	printf(
+		'<input id="%s" class="regular-text" type="text" value="%s" name="mm_settings_section_1_field_1" />',
+		esc_attr( $args['label_for'] ),
+		esc_attr( $value )
+	);
+
+	$url = admin_url( 'options-general.php?page=mm-meins-unter-1&mm_action=delete_settings' );
+	$url = wp_nonce_url(
+	// die eigentliche URL
+		$url,
+		// der Name der Action
+		'mm_delete_settings',
+		// die Bezeichnung der Variablen die die Nonce beinhalten soll
+		'mm_nonce' );
+
+	printf( '<a class="button" style="color: red;" href="%s">Feld zurücksetzen</a>', esc_url( $url ) );
 }
 
 
