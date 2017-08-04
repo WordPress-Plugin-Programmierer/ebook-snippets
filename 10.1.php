@@ -46,7 +46,7 @@ function mm_get_no_of_fb_shares( $share_url = null ) {
 		urlencode( $share_url )
 	);
 
-	# Eine eindeutigen, kurzen Namen für die URL erzeugen
+	# Einen eindeutigen, kurzen Namen für die URL erzeugen
 	$transient_name = sprintf(
 		'fb_shares_%s',
 		hash_hmac( 'crc32', $request_url, wp_salt( 'url' ) )
