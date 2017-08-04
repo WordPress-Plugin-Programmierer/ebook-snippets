@@ -1,79 +1,96 @@
 <?php
 /*
-Plugin Name: Twitter-Tweets Shortcode
-Plugin URI: http://my-website.com/twitter-tweets-shortcode/
-Description: Allows to show the number of tweets for a certain URL.
+Plugin Name: Facebook Share Shortcode
+Plugin URI: http://my-website.com/fb-share-shortcode/
+Description: Allows to show the number of shares for a certain URL.
 Author: Max Mustermann
 Author URI: http://my-website.com/
 Version: 1.0.0
-Text Domain: twitter-tweets-shortcode
+Text Domain: fb-share-shortcode
 Domain Path: /langs/
 */
 
 
-add_shortcode( 'no-of-tweets', 'mm_no_of_tweets_shortcode' );
-function mm_no_of_tweets_shortcode( $atts, $content, $name ) {
+add_shortcode( 'no-of-fb-shares', 'mm_no_of_fb_shares_shortcode' );
+
+function mm_no_of_fb_shares_shortcode( $atts, $content, $name ) {
+
 	$atts = shortcode_atts( array( 'url' => null ), $atts, $name );
 
-	return '<span class="no-of-tweets">' . mm_get_no_of_tweets( $atts['url'] ) . '</span>';
+	$share_count = mm_get_no_of_fb_shares( $atts['url'] );
+
+	if ( empty( $share_count ) ) {
+		return '';
+	}
+
+	return sprintf(
+		'<span class="no-of-tweets">Dieser Artikel wurde %d mal auf Facebook geteilt.</span>',
+		$share_count
+	);
 }
 
 
-function mm_get_no_of_tweets( $url = null ) {
+function mm_get_no_of_fb_shares( $share_url = null ) {
 
-	// Versuche die URL des aktuellen Blogartikels zu empfangen, falls keine URL angegeben wurde
-	if ( is_null( $url ) ) {
-		global $post;
-		if ( ! isset( $post ) ) {
-			return 0;
-		}
-
-		if ( ! is_a( $post, 'WP_Post' ) ) {
-			return 0;
-		}
-
-		$url = get_permalink( $post );
+	if ( is_null( $share_url ) ) {
+		$share_url = get_permalink( get_the_ID() );
 	}
 
-	$transient_name = substr( 'tweets_' . md5( $url ), 0, 45 );
-
-	// Transient auslesen
-	$tweets = get_transient( $transient_name );
-
-	// Falls der Transient noch nicht abgelaufen ist erhalten wir hier ein Array mit dem Schlüssel 'count'
-	if ( false !== $tweets ) {
-		return $tweets;
+	if ( empty( $share_url ) ) {
+		return 0;
 	}
 
-	unset( $tweets );
+	// Die Anfrage URL wird zusammengesetzt
+	$request_url = sprintf(
+		'http://graph.facebook.com/?fields=og_object{id},share&id=%s',
+		urlencode( $share_url )
+	);
 
-	// Wir Füllen den Transienten sofort um eine Schleife zu vermeiden
-	set_transient( $transient_name, 0, HOUR_IN_SECONDS );
+	# Eine eindeutigen, kurzen Namen für die URL erzeugen
+	$transient_name = sprintf(
+		'fb_shares_%s',
+		hash_hmac( 'crc32', $request_url, wp_salt( 'url' ) )
+	);
+
+	# Auf die maximal Länge zuschneiden
+	$transient_name = substr( $transient_name, 0, 100 );
+
+	$transient_value = get_transient( $transient_name );
+
+	if ( false !== $transient_value ) {
+		return $transient_value;
+	}
 
 	// Die eigentlichen Anfrage wird gestartet
-	$data = wp_remote_request( "http://urls.api.twitter.com/1/urls/count.json?url=" . urlencode( $url ) );
+	$response = wp_remote_get( $request_url );
 
 	// Ein etwaiger Fehler wird umgangen
-	if ( is_wp_error( $data ) ) {
+	if ( is_wp_error( $response ) ) {
 		return 0;
 	}
 
 	// Falls der Statuscode nicht 200 ist, wird 0 zurückgegeben
-	if ( 200 != wp_remote_retrieve_response_code( $data ) ) {
+	if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
 		return 0;
 	}
 
-	// Alle Daten müssen dekodiert werden damit sie später als Array ausgelesen werden können
-	if ( ! $info = json_decode( wp_remote_retrieve_body( $data ), true ) ) {
+	// Wir lesen die Daten aus
+	$data = wp_remote_retrieve_body( $response );
+
+	// Und versuchen Sie zu dekodieren
+	$data = json_decode( $data );
+
+	// Das Dekodieren schlug Fehl
+	if ( is_null( $data ) ) {
 		return 0;
 	}
 
-	// Falls die Daten korrekt dekodiert wurden, liegt hier nun die Anzahl an Tweets vor
-	if ( ! isset( $info['count'] ) ) {
+	// Der gesuchte Wert existiert nicht
+	if ( ! isset( $data->share->share_count ) ) {
 		return 0;
 	}
 
-	set_transient( $transient_name, $info['count'], DAY_IN_SECONDS );
+	set_transient( $transient_name, intval( $data->share->share_count ), DAY_IN_SECONDS );
 
-	return $info['count'];
+	return intval( $data->share->share_count );
 }
