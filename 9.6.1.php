@@ -24,7 +24,7 @@ function mm_no_of_fb_shares_shortcode( $atts, $content, $name ) {
 	}
 
 	return sprintf(
-		'<span class="no-of-tweets">Dieser Artikel wurde %d mal auf Facebook geteilt.</span>',
+		'<span class="no-of-shares">Dieser Artikel wurde %d mal auf Facebook geteilt.</span>',
 		$share_count
 	);
 }
