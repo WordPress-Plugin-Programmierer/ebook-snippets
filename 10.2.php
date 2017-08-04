@@ -64,6 +64,8 @@ function mm_get_no_of_fb_shares( $share_url = null ) {
 	// Die eigentlichen Anfrage wird gestartet
 	$response = wp_remote_get( $request_url );
 
+	set_transient( $transient_name, 0, HOUR_IN_SECONDS );
+
 	// Ein etwaiger Fehler wird umgangen
 	if ( is_wp_error( $response ) ) {
 		return 0;
