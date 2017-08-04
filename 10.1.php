@@ -55,12 +55,6 @@ function mm_get_no_of_fb_shares( $share_url = null ) {
 	# Auf die maximal Länge zuschneiden
 	$transient_name = substr( $transient_name, 0, 100 );
 
-	$transient_value = get_transient( $transient_name );
-
-	if ( false !== $transient_value ) {
-		return $transient_value;
-	}
-
 	// Die eigentlichen Anfrage wird gestartet
 	$response = wp_remote_get( $request_url );
 
