@@ -41,13 +41,13 @@ function mm_get_no_of_fb_shares( $share_url = null ) {
 	}
 
 	// Die Anfrage URL wird zusammengesetzt
-	$response_url = sprintf(
+	$request_url = sprintf(
 		'http://graph.facebook.com/?fields=og_object{id},share&id=%s',
 		urlencode( $share_url )
 	);
 
 	// Die eigentlichen Anfrage wird gestartet
-	$response = wp_remote_get( $response_url );
+	$response = wp_remote_get( $request_url );
 
 	// Ein etwaiger Fehler wird umgangen
 	if ( is_wp_error( $response ) ) {
