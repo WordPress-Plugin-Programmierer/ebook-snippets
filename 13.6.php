@@ -9,10 +9,11 @@ $terms = get_term_children( 20, 'category' );
 var_dump( $terms );
 
 // Im Gegensatz dazu: get_terms()
-$terms = get_terms( 'category', array(
+$terms = get_terms( array(
 	'hide_empty' => false,
 	'child_of'   => 20,
-	'fields'     => 'ids'
+	'fields'     => 'ids',
+	'taxonomy'   => 'category',
 ) );
 
 var_dump( $terms );
