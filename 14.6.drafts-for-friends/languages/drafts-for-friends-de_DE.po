@@ -1,0 +1,109 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Drafts for Friends\n"
+"POT-Creation-Date: 2018-01-23 10:24+0700\n"
+"PO-Revision-Date: 2018-01-23 10:25+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.5\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: drafts-for-friends.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#. Plugin Name of the plugin/theme
+#: drafts-for-friends.php:42 drafts-for-friends.php:43
+msgid "Drafts for Friends"
+msgstr "Entwürfe für Freunde"
+
+#: drafts-for-friends.php:123
+msgid "No drafts found."
+msgstr "Keine Entwürfe gefunden."
+
+#: drafts-for-friends.php:156
+msgid "Sorry, you cannot create a new draft."
+msgstr "Sorry, du kannst keinen neuen Entwurf erstellen."
+
+#: drafts-for-friends.php:173
+msgid "Please select a valid draft post from the select box."
+msgstr "Bitte wähle einen gültigen Entwurf aus der Selectbox aus."
+
+#: drafts-for-friends.php:190
+msgid "Sorry, draft could not be released."
+msgstr "Sorry, der Entwurf konnte nicht freigegeben werden."
+
+#: drafts-for-friends.php:203
+msgid "Draft has been released."
+msgstr "Entwurf wurde freigegeben."
+
+#: drafts-for-friends.php:372
+msgid "An error occurred"
+msgstr "Ein Fehler ist aufgetreten"
+
+#: drafts-for-friends.php:441
+msgid "This key does not exist."
+msgstr "Dieser Schlüssel existiert nicht."
+
+#: templates/new-draft-form.php:13
+msgid "Release new draft"
+msgstr "Einen neuen Entwurf freigeben"
+
+#: templates/new-draft-form.php:22
+msgid "Select a new draft"
+msgstr "Entwurf auswählen"
+
+#: templates/new-draft-form.php:32
+msgid "Create Link for this draft"
+msgstr "Link für diesen Entwurf erstellen"
+
+#: templates/released-posts.php:13
+msgid "Current released posts"
+msgstr "Aktuell freigegebene Artikel"
+
+#: templates/released-posts.php:18
+msgid "Post title"
+msgstr "Beitragstitel"
+
+#: templates/released-posts.php:19
+msgid "Link"
+msgstr ""
+
+#: templates/released-posts.php:20
+msgid "Options"
+msgstr "Optionen"
+
+#: templates/released-posts.php:59
+msgid "Delete"
+msgstr "Löschen"
+
+#: templates/released-posts.php:69
+msgid "No posts found."
+msgstr "Keine Beiträge gefunden."
+
+#. Plugin URI of the plugin/theme
+msgid "https://wp-plugin-erstellen.de"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Allows to create links to draft posts."
+msgstr ""
+"Erlaubt das Erstellen von Links zu Beiträgen die als Entwurf gespeichert "
+"sind."
+
+#. Author of the plugin/theme
+msgid "Florian Simeth"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://florian-simeth.de"
+msgstr ""
