@@ -2,7 +2,7 @@
 /*
   Plugin Name: Drafts for Friends
   Plugin URI: https://wp-plugin-erstellen.de
-  Version: 0.1.0
+  Version: 0.2.0
   Author: Florian Simeth
   Author URI: https://florian-simeth.de
   Description: Allows to create links to draft posts.
@@ -24,6 +24,11 @@
 
 add_action( 'init', 'dff_load_translation' );
 
+/**
+ * Load Plugin translation file.
+ *
+ * @since 0.2.0
+ */
 function dff_load_translation() {
 
 	load_plugin_textdomain(
