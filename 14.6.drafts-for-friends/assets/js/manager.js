@@ -28,11 +28,11 @@ jQuery( document ).ready( function () {
 				if ( response.hasOwnProperty( 'message' ) ) {
 					alert( response.message );
 				} else {
-					alert( 'An error occurred' );
+					alert( DFF_I18N.delete_error );
 				}
 			} )
 			.always( function () {
-				self.removeClass( DFF_I18N.delete_error );
+				self.removeClass( 'updating-message' );
 			} );
 	} );
 } );
