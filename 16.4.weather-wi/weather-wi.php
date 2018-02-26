@@ -87,7 +87,7 @@ class WWI_Weather_Widget extends WP_Widget {
 		<div class="wi-weather-temp">
 			<?php
 
-			$temp = floatval( get_option( 'wi-weather', 0.0 ) );
+			$temp = floatval( get_option( $this->id, 0.0 ) );
 
 			printf(
 				__( '%d °C', 'wi-weather' ),
