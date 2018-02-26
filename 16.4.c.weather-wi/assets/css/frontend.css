@@ -1,0 +1,21 @@
+.wwi_weather_widget {
+    text-align: center;
+}
+
+.wi-weather-temp {
+    font-size: 3rem;
+}
+
+.wi-weather-desc {
+    margin-top: 1rem;
+}
+
+.wi-weather-copyright {
+    margin-top: 1rem;
+    font-size: .7rem;
+    color: lightgrey;
+}
+
+.wi-weather-error {
+    color: indianred;
+}
