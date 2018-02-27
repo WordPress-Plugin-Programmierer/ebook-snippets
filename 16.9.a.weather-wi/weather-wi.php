@@ -180,8 +180,9 @@ function wwi_is_widget_active( $widget_id ) {
 	return isset( $widgets_settings[ $number ] );
 }
 
+
 /**
- * Get's the users input from a widget id.
+ * Gets the users chosen place from a widget id.
  *
  * @since 0.1.0
  *
@@ -226,22 +227,33 @@ function wwi_cron_update_weather( $widget_id ) {
 	$weather_data = wwi_fetch_weather( $place );
 
 	if ( is_wp_error( $weather_data ) ) {
-		# re-schedule on error and try again in one hour.
-		wp_schedule_single_event( time() + HOUR_IN_SECONDS, 'wwi_update_weather', func_get_args() );
-
 		return;
 	}
 
-	$times    = wp_list_pluck( $weather_data, 'time' );
-	$max_time = max( $times );
-
-	# re-schedule on $max_time.
-	wp_schedule_single_event( $max_time, 'wwi_update_weather', func_get_args() );
-
+	#save weather data
 	update_option( $widget_id, $weather_data, 'yes' );
 
 }
 
+add_action( 'delete_widget', 'wwi_on_delete_widget', 10, 3 );
+
+/**
+ * Fired on widget deletion.
+ *
+ * @since 0.1.0
+ *
+ * @param string $widget_id
+ * @param string $sidebar_id
+ * @param string $id_base
+ */
+function wwi_on_delete_widget( $widget_id, $sidebar_id, $id_base ) {
+
+	if ( 'wwi_weather_widget' !== $id_base ) {
+		return;
+	}
+
+	wp_clear_scheduled_hook( 'wwi_update_weather', array( $widget_id ) );
+}
 
 /**
  * Class WWI_Weather_Widget
@@ -379,13 +391,11 @@ class WWI_Weather_Widget extends WP_Widget {
 		$instance['place']        = sanitize_text_field( strip_tags( $new_instance['place'] ) );
 		$instance['refresh_rate'] = sanitize_text_field( strip_tags( $new_instance['refresh_rate'] ) );
 
-		$cron_args = array( $this->id );
+		# clear schedule
+		wp_clear_scheduled_hook( 'wwi_update_weather', array( $this->id ) );
 
-		# clear all cronjobs for this widget-id
-		wp_clear_scheduled_hook( 'wwi_update_weather', $cron_args );
-
-		# re-schedule for immediate weather-refresh
-		wp_schedule_single_event( time(), 'wwi_update_weather', $cron_args );
+		# re-schedule
+		wp_reschedule_event( time(), $instance['refresh_rate'], 'wwi_update_weather', array( $this->id ) );
 
 		return $instance;
 	}
