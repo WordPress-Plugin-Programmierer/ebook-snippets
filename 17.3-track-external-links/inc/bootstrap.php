@@ -59,7 +59,6 @@ add_action( 'f/tel/flush_rewrite_rules', '\f\tel\flush_rewrite_rules' );
  */
 function flush_rewrite_rules() {
 
-	error_log( 'flush rules' );
 	\flush_rewrite_rules( false );
 }
 
