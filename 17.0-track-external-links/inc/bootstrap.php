@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-register_activation_hook( __FILE__, '\f\tel\plugin_activation' );
+register_activation_hook( TEL_PLUGIN_FILE, '\f\tel\plugin_activation' );
 
 /**
  * Plugin activation.
