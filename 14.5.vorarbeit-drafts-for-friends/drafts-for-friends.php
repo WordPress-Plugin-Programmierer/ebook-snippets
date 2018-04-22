@@ -126,8 +126,6 @@ function dff_draft_select_options() {
 }
 
 
-add_action( 'admin_action_dff_new_draft', 'dff_new_draft_create' );
-
 /**
  * Adds a new entry to the release post list.
  *
