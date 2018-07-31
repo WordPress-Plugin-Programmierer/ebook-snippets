@@ -19,7 +19,7 @@ function mm_rest_comment( $response, $comment, $request ) {
 
 	$response->add_link(
 		'https://my-rating-plugin.com/rating',
-		rest_url( "/wp/v2/comments/{$comment->comment_ID}/rating" )
+		rest_url( "/rating_plugin/v1/comment/{$comment->comment_ID}/ratings" )
 	);
 
 	return $response;
