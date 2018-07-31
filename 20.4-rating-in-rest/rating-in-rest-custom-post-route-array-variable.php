@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Rating in REST
-Description: Custom POST-Route with array variable.
+Description: Custom GET-Route with array variable.
 */
 
 add_action( 'rest_api_init', 'mm_rest_init' );
@@ -9,8 +9,8 @@ add_action( 'rest_api_init', 'mm_rest_init' );
 function mm_rest_init() {
 
 	register_rest_route( 'rating_plugin/v1', '/ratings', array(
-		# Diese Route hat einen Endpunkt, nämlich POST (WP_REST_Server::CREATABLE = POST)
-		'methods'             => WP_REST_Server::CREATABLE,
+		# Diese Route hat einen Endpunkt, nämlich GET (WP_REST_Server::READABLE = GET)
+		'methods'             => WP_REST_Server::READABLE,
 
 		# Die Funktion, die das Rating letztlich vornimmt.
 		'callback'            => 'mm_rate_comment',
@@ -29,17 +29,21 @@ function mm_rest_init() {
 				'type'              => 'array',
 				'require'           => true,
 				'items'             => array(
-					'type' => 'integer',
+					'type'             => 'integer',
+					'exclusiveMinimum' => false,
+					'minimum'          => 1,
+					'require'          => true,
 				),
 				'validate_callback' => function ( $param, $request, $key ) {
 
-					$param = mm_rest_sanitize_comments( $param, $request, $key );
+					# sanitize first
+					$param = rest_parse_request_arg( $param, $request, $key );
 
 					if ( is_wp_error( $param ) ) {
 						return $param;
 					}
 
-					foreach ( $param as $comment_id ) {
+					foreach ( $param as $key => $comment_id ) {
 						if ( ! get_comment( $comment_id ) instanceof WP_Comment ) {
 							return new WP_Error(
 								'mm_rest_validate_comments',
@@ -49,37 +53,14 @@ function mm_rest_init() {
 						}
 					}
 
-					return $param;
+					return true;
 				},
-				'sanitize_callback' => 'mm_rest_sanitize_comments',
 			),
 
 		),
 	) );
 }
 
-/**
- * Sanitizes an array of comments.
- *
- * @param mixed            $param
- * @param \WP_REST_Request $request
- * @param string           $key
- *
- * @return array|\WP_Error
- */
-function mm_rest_sanitize_comments( $param, $request, $key ) {
-
-	if ( ! is_array( $param ) ) {
-		return new WP_Error(
-			'mm_rest_validate_comments',
-			__( '', 'rest-rate' )
-		);
-	}
-
-	array_walk( $param, 'absint' );
-
-	return $param;
-}
 
 /**
  * @param \WP_REST_Request $request
