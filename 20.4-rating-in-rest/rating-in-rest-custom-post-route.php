@@ -27,8 +27,6 @@ function mm_rest_init() {
 
 			# Die Kommentar-ID.
 			'comment_id' => array(
-				# Der Typ.
-				'type'              => 'integer',
 
 				# Beschreibung
 				'description'       => __( 'The comment ID.', 'rest-rate' ),
@@ -48,9 +46,6 @@ function mm_rest_init() {
 
 			# Das Rating.
 			'rating'     => array(
-				#Der Typ.
-				'type'              => 'integer',
-
 				# Beschreibung
 				'description'       => __( 'The actual rating. Can be +1 or -1', 'rest-rate' ),
 
