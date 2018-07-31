@@ -60,12 +60,9 @@ function mm_rest_init() {
 								'require'          => true,
 							),
 							'rating' => array(
-								'type'             => 'integer',
-								'exclusiveMinimum' => false,
-								'minimum'          => - 1,
-								'exclusiveMaximum' => false,
-								'maximum'          => 1,
-								'require'          => true,
+								'type'    => 'integer',
+								'enum'    => array( '-1', '1' ),
+								'require' => true,
 							),
 						),
 					),
@@ -125,7 +122,7 @@ function mm_rate_comments( $request ) {
 
 /**
  * Fetch comments with their ratings.
- * 
+ *
  * @param \WP_REST_Request $request
  *
  * @return \WP_Error|\WP_REST_Response
