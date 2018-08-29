@@ -43,7 +43,6 @@ function mm_register_book_post_type() {
 		),
 		'show_in_rest'          => true,
 		'rest_base'             => 'books',
-		'rest_controller_class' => 'MM_REST_Books_Controller',
 	);
 
 	register_post_type( 'book', $args );
