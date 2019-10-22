@@ -1,0 +1,23 @@
+{
+    "name": "mm-fieldset-block",
+    "version": "0.1.0",
+    "description": "An easy Gutenberg block for creating HTML fieldsets.",
+    "main": "index.js",
+    "private": true,
+    "author": "Florian Simeth",
+    "license": "GPL-3.0-or-later",
+    "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/plugin-transform-react-jsx": "^7.3.0",
+        "@babel/preset-env": "^7.5.5",
+        "babel-loader": "^8.0.6",
+        "webpack": "^4.36.1",
+        "webpack-cli": "^3.3.6"
+    },
+    "scripts": {
+        "dev": "webpack --watch --mode=development",
+        "build": "webpack --mode=production"
+    },
+    "dependencies": {},
+    "browserslist": "> 0.25%, not dead"
+}

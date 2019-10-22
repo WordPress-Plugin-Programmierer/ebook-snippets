@@ -1,0 +1,19 @@
+.mm-fieldset {
+  border: 2px solid gray;
+  padding: .5rem;
+}
+
+.mm-fieldset legend {
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  white-space: normal;
+  margin-top: -1.7rem;
+  background-color: #fff;
+  padding: 0 1rem;
+}
+
+.mm-fieldset .content {
+  padding: 0 1rem;
+}
